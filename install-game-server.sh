@@ -7,7 +7,7 @@ export PATH
 #   Author: Clang <admin@clangcn.com>
 #   Intro:  http://clang.cn
 #===============================================================================================
-version="7.2"
+version="7.3"
 str_game_dir="/usr/local/game-server"
 game_x64_download_url=https://raw.githubusercontent.com/clangcn/game-server/master/latest/game-server
 game_x86_download_url=https://raw.githubusercontent.com/clangcn/game-server/master/latest/game-server-386
@@ -227,7 +227,7 @@ pre_install_clang(){
     fi
     echo ""
     ssmethod="chacha20"
-    echo "Please input Encryption method(chacha20-ierf, chacha20, aes-256-cfb, bf-cfb, des-cfb, rc4)"
+    echo "Please input Encryption method(chacha20-ietf, chacha20, aes-256-cfb, bf-cfb, des-cfb, rc4)"
     read -p "(Default method: ${ssmethod}):" ssmethod
     if [ "${ssmethod}" = "" ]; then
         ssmethod="chacha20"
@@ -290,14 +290,14 @@ EOF
     rm -f ${str_game_dir}/game-server
     if [ "${Is_64bit}" == 'y' ] ; then
         if [ ! -s ${str_game_dir}/game-server ]; then
-            if ! wget ${game_x64_download_url} -O ${str_game_dir}/game-server; then
+            if ! wget --no-check-certificate ${game_x64_download_url} -O ${str_game_dir}/game-server; then
                 echo "Failed to download game-server file!"
                 exit 1
             fi
         fi
     else
          if [ ! -s ${str_game_dir}/game-server ]; then
-            if ! wget ${game_x86_download_url} -O ${str_game_dir}/game-server; then
+            if ! wget --no-check-certificate ${game_x86_download_url} -O ${str_game_dir}/game-server; then
                 echo "Failed to download game-server file!"
                 exit 1
             fi
